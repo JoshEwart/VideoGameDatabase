@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!--
+TITLE: Simple Web App
+AUTHOR: Joshua Ewart
+PURPOSE: An example of a simple web app with some functionality using Angular.JS
+ORIGINALLY CREATED ON: 06/10/2019
+LAST MODIFIED ON: 06/10/2019
+LAST MODIFIED BY: Joshua Ewart
+-->
+<head>
+<meta charset="UTF-8">
+<title>VideoGame Options</title>
+<link rel="styleSheet" type="text/css" href="webAppStyle.css"></link>
+<script type = "text/javascript" src ="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script><!---JQuery Access if Needed-->
+
+<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script><!--Angular Access-->
+<script type = "text/javascript" src = "VideoGamewebApp.js"></script><!--javascript File for alterations-->
+</head>
+
+<body ng-app="VideoGame" ng-controller = "dataControl">
+	
+	<header>
+		<h1>
+		Video Games
+		</h1>
+		<h2>
+		View, add, edit, and remove Videogames (and details)
+		</h2>
+	</header>
+		
+	<div class = "display" ng-app="">
+		<h2>Lookup Game: <input type="text" ng-model="searchText"></input></h2>
+		<br></br>
+		
+		<div id= "searchResults" class = "display" ng-app="searchDisplay" ngcontroller="gameData"> 			
+			<table >
+				<tr>
+					<td>Name</td>
+					<td>Release Year</td>
+				</tr>
+				<tr ng-repeat="X in Games | filter:searchText" >
+					<td>{{X.Name}}</td>
+					<td>{{X.Year}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div id = "tasks" class = "display" ng-app="">
+		<label>Name: <input id= "taskGameName" type="text" ng-model="search.Name"></label>
+		<label>Release year: <input id= "taskGameYear" type="text" ng-model="search.Year"></label>
+		<br></br>
+		<input type = "radio" name = "options" class = "options" id = "add" onclick = "addForm();">Add Game</input><br></br>
+		<input type = "radio" name = "options" class = "options" id = "edit" onclick = "editForm();">edit Game</input><br></br>
+		<input type = "radio" name = "options" class = "options" id = "remove" onclick = "deleteForm();">Delete Game</input><br></br>
+		
+		<div id = "addDIV" class = "display" ng-app="">
+			<h2>Add Game:
+				<br></br>
+				<button id ="addGameButton" type = "button" onclick = "addGame();"> Submit </button>
+				<br></br>
+			</h2>
+		</div>
+		
+		<div id = "editDIV" class = "display" ng-app="">
+			<h2>Edit Game:
+				<br></br>
+				<button id ="editGameButton" type = "button" onclick = "editGame();"> Submit </button>
+				<br></br>
+			</h2>
+		</div>
+		
+		<div id = "deleteDIV" class = "display" ng-app="">
+			<h2>Delete Game:
+				<br></br>
+				<button id ="deleteGameButton" type = "button" onclick = "deleteGame();"> Submit </button>
+				<br></br>
+			</h2>
+		</div>
+		
+		<table id="taskTable">
+			<tr id = "{{'gameList' + $index}}" ng-repeat="Y in Games | filter:search" >
+				<td id = "{{Y.Name}}">{{Y.Name}}</td>
+				<td id = "{{Y.Year}}">{{Y.Year}}</td>
+			</tr>
+		</table>
+		</div>
+	</div>
+
+</body>
+</html>
